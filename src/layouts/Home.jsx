@@ -1,13 +1,24 @@
 import Header from "../components/Header";
+import LatestNews from "../components/LatestNews";
+import NavBar from "../components/NavBar";
 
 const Home = () => {
   return (
-    <div>
+    <div className="font-poppins">
       <header>
         <Header></Header>
+        <section className="my-8 w-11/12 mx-auto bg-[#F3F3F3] p-4">
+          <LatestNews></LatestNews>
+        </section>
       </header>
-      <nav></nav>
-      <main></main>
+      <nav className="mb-16 w-11/12 mx-auto">
+        <NavBar></NavBar>
+      </nav>
+      <main className="w-11/12 mx-auto mb-8 grid grid-cols-12 gap-6">
+        <aside className="col-span-3">Left</aside>
+        <section className="col-span-6">News</section>
+        <aside className="col-span-3">Right</aside>
+      </main>
     </div>
   );
 };
