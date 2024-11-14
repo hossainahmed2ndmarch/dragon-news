@@ -1,10 +1,25 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import Home from "../layouts/Home";
+import CategoryNews from "../pages/CategoryNews";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home></Home>
+    element: <Home></Home>,
+    children: [
+      {
+        path: "",
+        element: <Navigate to={"/category/01"}></Navigate>,
+      },
+      {
+        path: "/category/:id",
+        element: <CategoryNews></CategoryNews>,
+        loader: ({ params }) =>
+          fetch(
+            `https://openapi.programming-hero.com/api/news/category/${params.id}`
+          ),
+      },
+    ],
   },
   {
     path: "/news",
@@ -15,9 +30,9 @@ const router = createBrowserRouter([
     element: <h1>Login/SignUp</h1>,
   },
   {
-   path:'*',
-   element: <h1>ERROR</h1>
-  }
+    path: "*",
+    element: <h1>ERROR</h1>,
+  },
 ]);
 
 export default router;
