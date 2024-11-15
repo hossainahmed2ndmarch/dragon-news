@@ -1,5 +1,6 @@
 import { FaBookmark, FaShareAlt, FaStar, FaEye } from "react-icons/fa";
 import moment from "moment";
+import { Link } from "react-router-dom";
 
 const NewsCard = (props = {}) => {
   const { news } = props || {};
@@ -40,9 +41,9 @@ const NewsCard = (props = {}) => {
 
       {/* Details Section */}
       <p className="text-[#706F6F] mb-3">{news.details.slice(0, 150)}...</p>
-      <a href="#" className="text-[#FF8C47] font-medium">
+      <Link to={`/news/${news._id}`} className="text-[#FF8C47] font-medium">
         Read More
-      </a>
+      </Link>
 
       {/* Footer Section */}
       <div className="flex justify-between items-center mt-3">
