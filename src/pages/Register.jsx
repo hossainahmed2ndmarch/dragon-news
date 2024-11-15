@@ -1,13 +1,33 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../providers/AuthProvider";
 
 const Register = () => {
+  const { createNewUser, setUser } = useContext(AuthContext);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = new FormData(e.target);
+    const name = form.get("name");
+    const photo = form.get("photo");
+    const email = form.get("email");
+    const password = form.get("password");
+    console.log({ name, photo, email, password });
+    createNewUser(email, password)
+      .then((res) => {
+        const user = res.user;
+        setUser(user);
+      })
+      .catch((error) => {
+        console.log("ERROR", error.message);
+      });
+  };
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="card bg-base-100 w-full max-w-2xl p-[76px] shrink-0 rounded-none">
         <h2 className="text-4xl font-semibold text-[#403F3F] text-center">
           Register your account
         </h2>
-        <form className="card-body">
+        <form onSubmit={handleSubmit} className="card-body">
           <div className="form-control">
             <label className="label">
               <span className="label-text text-xl text-[#403F3F] font-semibold">
@@ -16,6 +36,7 @@ const Register = () => {
             </label>
             <input
               type="text"
+              name="name"
               placeholder="Enter your name"
               className="input input-bordered bg-[#F3F3F3] rounded-none border-none"
               required
@@ -29,6 +50,7 @@ const Register = () => {
             </label>
             <input
               type="text"
+              name="photo"
               placeholder="Drop your photo url"
               className="input input-bordered bg-[#F3F3F3] rounded-none border-none"
               required
@@ -42,6 +64,7 @@ const Register = () => {
             </label>
             <input
               type="email"
+              name="email"
               placeholder="Enter your email address"
               className="input input-bordered bg-[#F3F3F3] rounded-none border-none"
               required
@@ -55,6 +78,7 @@ const Register = () => {
             </label>
             <input
               type="password"
+              name="password"
               placeholder="Enter your password"
               className="input input-bordered bg-[#F3F3F3] rounded-none border-none"
               required
